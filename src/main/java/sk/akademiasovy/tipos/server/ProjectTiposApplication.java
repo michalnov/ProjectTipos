@@ -1,8 +1,18 @@
 package sk.akademiasovy.tipos.server;
 
+//import io.dropwizard.Application;
+//import io.dropwizard.setup.Bootstrap;
+//import io.dropwizard.setup.Environment;
+
 import io.dropwizard.Application;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
+import org.eclipse.jetty.servlets.CrossOriginFilter;
+import sk.akademiasovy.tipos.server.resources.Login;
+
+import javax.servlet.DispatcherType;
+import javax.servlet.FilterRegistration;
+import java.util.EnumSet;
 
 public class ProjectTiposApplication extends Application<ProjectTiposConfiguration> {
 
@@ -24,6 +34,17 @@ public class ProjectTiposApplication extends Application<ProjectTiposConfigurati
     public void run(final ProjectTiposConfiguration configuration,
                     final Environment environment) {
         // TODO: implement application
+        environment.jersey().register( new Login() );
+
+        final FilterRegistration.Dynamic cors =
+                environment.servlets().addFilter("CORS", CrossOriginFilter.class);
+// Configure CORS parameters
+        cors.setInitParameter("allowedOrigins", "*");
+        cors.setInitParameter("allowedHeaders", "X-Requested-With,Content-Type,Accept,Origin");
+        cors.setInitParameter("allowedMethods", "OPTIONS,GET,PUT,POST,DELETE,HEAD");
+
+        // Add URL mapping
+        cors.addMappingForUrlPatterns(EnumSet.allOf(DispatcherType.class), true, "/*");
     }
 
 }
