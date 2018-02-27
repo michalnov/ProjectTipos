@@ -5,8 +5,62 @@
     <title>Login Tipos</title>
     <script src="webSource/script/jquery-3.2.1.js" charset="utf-8"></script>
     <script src="webSource/script/login.js" charset="utf-8"></script>
+    <script src="webSource/css/bootstrap.css"></script>
   </head>
   <body>
+
+  <div class="row">
+      <div class="col-sm-4"></div>
+      <div class="col-sm-4"> <h1>Project Tipos</h1> </div>
+      <div class="col-sm-4"></div>
+  </div>
+  <div class="row">
+      <div class="col-sm-4"> <h2>Login</h2> </div>
+      <div class="col-sm-4"></div>
+      <div class="col-sm-4"> <h2>Register</h2> </div>
+  </div>
+  <div class="row">
+      <div class="col-sm-2"></div>
+      <div class="col-sm-4">
+          <div class="form-group">
+              <label for="LLogin">Name:</label>
+              <input type="text" class="form-control" id="LLogin">
+              <label for="LPassword">Password:</label>
+              <input type="password" class="form-control" id="LPassword">
+              <div style="padding-top: 10px;">
+                  <button type="button" class="btn btn-success">Login</button>
+                  <button type="button" class="btn btn-danger">Clear</button>
+              </div>
+          </div>
+      </div>
+      <div class="col-sm-4">
+          <div class="form-group">
+              <label for="RLogin">Name:</label>
+              <input type="text" class="form-control" id="RLogin">
+              <div id="Error"></div>
+              <label for="RPassword">Password:</label>
+              <input type="password" class="form-control" id="RPassword">
+              <label for="RPasswordRE">Re Enter Password:</label>
+              <input type="password" class="form-control" id="RPasswordRE">
+              <div id="Error"></div>
+              <label for="RFirstname">Password:</label>
+              <input type="text" class="form-control" id="RFirstname">
+              <div id="Error"></div>
+              <label for="RLastname">Password:</label>
+              <input type="text" class="form-control" id="RLastname">
+              <div id="Error"></div>
+              <label for="REmail">Password:</label>
+              <input type="text" class="form-control" id="REmail">
+              <div id="Error"></div>
+              <div style="padding-top: 10px;">
+                  <button type="button" class="btn btn-success">Register</button>
+                  <button type="button" class="btn btn-primary">Controll fields</button>
+                  <button type="button" class="btn btn-danger">Clear</button>
+              </div>
+          </div>
+      </div>
+      <div class="col-sm-2"></div>
+  </div>
 
   </body>
 </html>

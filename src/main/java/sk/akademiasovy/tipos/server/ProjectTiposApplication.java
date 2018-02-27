@@ -1,14 +1,11 @@
 package sk.akademiasovy.tipos.server;
 
-//import io.dropwizard.Application;
-//import io.dropwizard.setup.Bootstrap;
-//import io.dropwizard.setup.Environment;
-
 import io.dropwizard.Application;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
 import org.eclipse.jetty.servlets.CrossOriginFilter;
 import sk.akademiasovy.tipos.server.resources.Login;
+import sk.akademiasovy.tipos.server.resources.WebSource;
 
 import javax.servlet.DispatcherType;
 import javax.servlet.FilterRegistration;
@@ -35,10 +32,11 @@ public class ProjectTiposApplication extends Application<ProjectTiposConfigurati
                     final Environment environment) {
         // TODO: implement application
         environment.jersey().register( new Login() );
+        environment.jersey().register( new WebSource() );
 
         final FilterRegistration.Dynamic cors =
                 environment.servlets().addFilter("CORS", CrossOriginFilter.class);
-// Configure CORS parameters
+        // Configure CORS parameters
         cors.setInitParameter("allowedOrigins", "*");
         cors.setInitParameter("allowedHeaders", "X-Requested-With,Content-Type,Accept,Origin");
         cors.setInitParameter("allowedMethods", "OPTIONS,GET,PUT,POST,DELETE,HEAD");

@@ -2,9 +2,6 @@ package sk.akademiasovy.tipos.server;
 
 import java.util.Random;
 
-/**
- * Created by host on 20.2.2018.
- */
 public class User {
     private String firstname;
     private String lastname;
@@ -20,12 +17,28 @@ public class User {
         generetaToken();
     }
 
-    private void generetaToken() {
-        char[] text=new char[40];
-        Random random=new Random();
 
-        for(int i=0;i<40;i++){
-            text[i]=(char) (random.nextInt(26)+65);
+    private void generetaToken() {
+        Random random=new Random();
+        int lenght = random.nextInt(7)+11;
+        char[] text=new char[54];
+        int typeofchar = 0;
+        for(int i=0;i<lenght;i++){
+            for (int j = 0; j < 3; j++) {
+                typeofchar = random.nextInt(3);
+                if (typeofchar == 1)
+                {
+                    text[i]=(char) (random.nextInt(10)+30);
+                }
+                else if (typeofchar == 0)
+                {
+                    text[i]=(char) (random.nextInt(26)+65);
+                }
+                else
+                {
+                    text[i]=(char) (random.nextInt(26)+97);
+                }
+            }
         }
         token=String.valueOf(text);
         System.out.println(token);

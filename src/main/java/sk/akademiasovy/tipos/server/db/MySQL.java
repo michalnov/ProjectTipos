@@ -2,26 +2,22 @@ package sk.akademiasovy.tipos.server.db;
 
 import sk.akademiasovy.tipos.server.User;
 
-import javax.xml.crypto.dsig.spec.ExcC14NParameterSpec;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
-/**
- * Created by host on 20.2.2018.
- */
 public class MySQL {
     private Connection conn;
     private String driver = "com.mysql.jdbc.Driver";
     private String url="jdbc:mysql://localhost:3306/tipos";
-    private String username="root";
-    private String password="";
+    private String dbusername="root";
+    private String dbpassword="";
 
     public User getUser(String username, String password){
         try {
             Class.forName(driver).newInstance();
-            conn = DriverManager.getConnection(url, this.username, this.password);
+            conn = DriverManager.getConnection(url, this.dbusername, this.dbpassword);
 
             String query = "SELECT * from users where login like ? and password like ?";
             PreparedStatement ps = conn.prepareStatement(query);
@@ -36,6 +32,7 @@ public class MySQL {
                 ps.setString(1, user.getToken());
                 ps.executeUpdate();
                 System.out.println(ps);
+                conn.close();
                 return user;
             }
             return null;
@@ -44,4 +41,8 @@ public class MySQL {
         }
         return null;
     }
+
+
+
+
 }
