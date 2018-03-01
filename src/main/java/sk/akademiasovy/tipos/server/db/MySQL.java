@@ -1,6 +1,7 @@
 package sk.akademiasovy.tipos.server.db;
 
-import sk.akademiasovy.tipos.server.User;
+import sk.akademiasovy.tipos.server.resources.NewUser;
+import sk.akademiasovy.tipos.server.resources.User;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -43,6 +44,33 @@ public class MySQL {
     }
 
 
+    public User createNewUser(NewUser newUser){
+        try {
+            Class.forName(driver).newInstance();
+            conn = DriverManager.getConnection(url, this.dbusername, this.dbpassword);
+
+            String query = "SELECT * from users where login like ? and email like ?";
+            PreparedStatement ps = conn.prepareStatement(query);
+            ps.setString(1,newUser.getlogin());
+            ps.setString(2,newUser.getEmail());
+            ResultSet rs = ps.executeQuery();
+            if(rs.next()){
+                User user=new User(rs.getString("firstname"),rs.getString("lastname"),rs.getString("login"),rs.getString("email"));
+                query = "UPDATE tokens SET token=? WHERE idu=?";
+                ps = conn.prepareStatement(query);
+                ps.setInt(2,rs.getInt("id"));
+                ps.setString(1, user.getToken());
+                ps.executeUpdate();
+                System.out.println(ps);
+                conn.close();
+                return user;
+            }
+            return null;
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return null;
+    }
 
 
 }

@@ -1,4 +1,4 @@
-package sk.akademiasovy.tipos.server;
+package sk.akademiasovy.tipos.server.resources;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 

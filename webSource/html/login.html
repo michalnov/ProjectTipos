@@ -7,7 +7,7 @@
     <script src="webSource/script/login.js" charset="utf-8"></script>
     <script src="webSource/css/bootstrap.css"></script>
   </head>
-  <body>
+  <body onload="prepare()">
 
   <div class="row">
       <div class="col-sm-4"></div>
@@ -40,27 +40,36 @@
               <div id="Error"></div>
               <label for="RPassword">Password:</label>
               <input type="password" class="form-control" id="RPassword">
+              <div id="ErrorRPassword"></div>
               <label for="RPasswordRE">Re Enter Password:</label>
               <input type="password" class="form-control" id="RPasswordRE">
-              <div id="Error"></div>
+              <div id="ErrorRPasswordRE"></div>
               <label for="RFirstname">Password:</label>
               <input type="text" class="form-control" id="RFirstname">
-              <div id="Error"></div>
+              <div id="ErrorRFirstname"></div>
               <label for="RLastname">Password:</label>
               <input type="text" class="form-control" id="RLastname">
-              <div id="Error"></div>
+              <div id="ErrorRLastname"></div>
               <label for="REmail">Password:</label>
               <input type="text" class="form-control" id="REmail">
-              <div id="Error"></div>
+              <div id="ErrorREmail"></div>
               <div style="padding-top: 10px;">
                   <button type="button" class="btn btn-success">Register</button>
-                  <button type="button" class="btn btn-primary">Controll fields</button>
+                  <button type="button" class="btn btn-primary" >Controll fields</button>
                   <button type="button" class="btn btn-danger">Clear</button>
               </div>
           </div>
       </div>
       <div class="col-sm-2"></div>
   </div>
+
+  <script type="text/javascript">
+
+    function prepare() {
+
+    }
+
+  </script>
 
   </body>
 </html>

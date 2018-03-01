@@ -4,8 +4,7 @@ package sk.akademiasovy.tipos.server.resources;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
-import sk.akademiasovy.tipos.server.Credentials;
-import sk.akademiasovy.tipos.server.User;
+
 import sk.akademiasovy.tipos.server.db.MySQL;
 
 
@@ -16,9 +15,9 @@ public class Login {
     @Path("/login")
     @Produces(MediaType.APPLICATION_JSON)
     public String checkCredentials(Credentials credential){
-        System.out.println(credential.getUsername());
+        System.out.println(credential.getLogin());
         MySQL mySQL = new MySQL();
-        User user=mySQL.getUser(credential.username, credential.password);
+        User user=mySQL.getUser(credential.getLogin(), credential.getPassword());
 
         if(user==null){
             return "{}";
@@ -32,10 +31,10 @@ public class Login {
     @POST
     @Path("/singin")
     @Produces(MediaType.APPLICATION_JSON)
-    public String checkNewUser(NewUser newUser){
-        System.out.println(newUser.getUsername());
+    public String createUser(NewUser newUser){
+        System.out.println(newUser.getlogin());
         MySQL mySQL = new MySQL();
-        User user=mySQL.getUser(newUser.username, newUser.password);
+        User user=mySQL.createNewUser(newUser);
         if(user==null){
             return "{}";
         }
@@ -44,4 +43,22 @@ public class Login {
         }
 
     }
+
+    @POST
+    @Path("/formcontroll")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String createUser(NewUser newUser){
+        System.out.println(newUser.getlogin());
+        MySQL mySQL = new MySQL();
+        User user=mySQL.createNewUser(newUser);
+        if(user==null){
+            return "{}";
+        }
+        else{
+            return "{\"token\":\""+user.getToken()+"\"}";
+        }
+
+    }
+
+
 }

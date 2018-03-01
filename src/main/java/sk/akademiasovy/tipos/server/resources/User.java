@@ -1,4 +1,4 @@
-package sk.akademiasovy.tipos.server;
+package sk.akademiasovy.tipos.server.resources;
 
 import java.util.Random;
 
