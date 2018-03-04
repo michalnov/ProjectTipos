@@ -44,21 +44,7 @@ public class Login {
 
     }
 
-    @POST
-    @Path("/formcontroll")
-    @Produces(MediaType.APPLICATION_JSON)
-    public String createUser(NewUser newUser){
-        System.out.println(newUser.getlogin());
-        MySQL mySQL = new MySQL();
-        User user=mySQL.createNewUser(newUser);
-        if(user==null){
-            return "{}";
-        }
-        else{
-            return "{\"token\":\""+user.getToken()+"\"}";
-        }
 
-    }
 
 
 }

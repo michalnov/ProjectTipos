@@ -4,6 +4,7 @@ import io.dropwizard.Application;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
 import org.eclipse.jetty.servlets.CrossOriginFilter;
+import sk.akademiasovy.tipos.server.resources.Home;
 import sk.akademiasovy.tipos.server.resources.Login;
 import sk.akademiasovy.tipos.server.resources.WebSource;
 
@@ -33,6 +34,7 @@ public class ProjectTiposApplication extends Application<ProjectTiposConfigurati
         // TODO: implement application
         environment.jersey().register( new Login() );
         environment.jersey().register( new WebSource() );
+        environment.jersey().register( new Home() );
 
         final FilterRegistration.Dynamic cors =
                 environment.servlets().addFilter("CORS", CrossOriginFilter.class);

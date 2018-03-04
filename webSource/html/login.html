@@ -5,19 +5,20 @@
     <title>Login Tipos</title>
     <script src="webSource/script/jquery-3.2.1.js" charset="utf-8"></script>
     <script src="webSource/script/login.js" charset="utf-8"></script>
-    <script src="webSource/css/bootstrap.css"></script>
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   </head>
   <body onload="prepare()">
 
   <div class="row">
-      <div class="col-sm-4"></div>
-      <div class="col-sm-4"> <h1>Project Tipos</h1> </div>
-      <div class="col-sm-4"></div>
+      <div class="col-sm-5"></div>
+      <div class="col-sm-2"> <h1>Project Tipos</h1> </div>
+      <div class="col-sm-5"></div>
   </div>
   <div class="row">
+      <div class="col-sm-3">  </div>
       <div class="col-sm-4"> <h2>Login</h2> </div>
-      <div class="col-sm-4"></div>
-      <div class="col-sm-4"> <h2>Register</h2> </div>
+      <div class="col-sm-5"> <h2>Register</h2> </div>
   </div>
   <div class="row">
       <div class="col-sm-2"></div>
@@ -25,12 +26,19 @@
           <div class="form-group">
               <label for="LLogin">Name:</label>
               <input type="text" class="form-control" id="LLogin">
+
               <label for="LPassword">Password:</label>
               <input type="password" class="form-control" id="LPassword">
+              <div id="ErrorLogin"></div>
+
               <div style="padding-top: 10px;">
                   <button type="button" class="btn btn-success">Login</button>
                   <button type="button" class="btn btn-danger">Clear</button>
               </div>
+          </div>
+          <div>
+            <p id="loggedU"></p>
+            <p id="loggedT"></p>
           </div>
       </div>
       <div class="col-sm-4">
@@ -38,21 +46,27 @@
               <label for="RLogin">Name:</label>
               <input type="text" class="form-control" id="RLogin">
               <div id="Error"></div>
+
               <label for="RPassword">Password:</label>
               <input type="password" class="form-control" id="RPassword">
               <div id="ErrorRPassword"></div>
+
               <label for="RPasswordRE">Re Enter Password:</label>
               <input type="password" class="form-control" id="RPasswordRE">
               <div id="ErrorRPasswordRE"></div>
+
               <label for="RFirstname">Password:</label>
               <input type="text" class="form-control" id="RFirstname">
               <div id="ErrorRFirstname"></div>
+
               <label for="RLastname">Password:</label>
               <input type="text" class="form-control" id="RLastname">
               <div id="ErrorRLastname"></div>
+
               <label for="REmail">Password:</label>
               <input type="text" class="form-control" id="REmail">
               <div id="ErrorREmail"></div>
+
               <div style="padding-top: 10px;">
                   <button type="button" class="btn btn-success">Register</button>
                   <button type="button" class="btn btn-primary" >Controll fields</button>
@@ -65,8 +79,33 @@
 
   <script type="text/javascript">
 
-    function prepare() {
+  var user = "";
+  var token = "";
 
+    function prepare() {
+      if(typeof(Storage) !== "undefined") {
+        if (sessionStorage.tiposUser && sessionStorage.tiposToken) {
+          user = sessionStorage.tiposUser;
+          token = sessionStorage.tiposToken;
+        }
+        else {
+          if (localStorage.tiposUser && localStorage.tiposToken) {
+              user = localStorage.tiposUser;
+              token = localStorage.tiposToken;
+          } else {
+              localStorage.tiposUser = "";
+              localStorage.tiposToken = "";
+          }
+        }
+      }
+      else {
+          alert("Sorry, your browser does not support web storage...");
+      }
+    }
+
+    function clearLogin() {
+      $("#LPassword").val('');
+      $("#LLogin").val('');
     }
 
   </script>
