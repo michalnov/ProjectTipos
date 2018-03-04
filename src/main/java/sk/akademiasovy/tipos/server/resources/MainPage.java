@@ -1,5 +1,4 @@
 package sk.akademiasovy.tipos.server.resources;
-
 import sk.akademiasovy.tipos.server.db.MySQL;
 
 import javax.ws.rs.*;
@@ -9,42 +8,10 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
-@Path("/login")
-public class Home {
+@Path("/home")
+public class MainPage {
 
 
-    @POST
-    @Path("/auth/login")
-    @Produces(MediaType.APPLICATION_JSON)
-    public String checkCredentials(Credentials credential){
-        System.out.println(credential.getLogin());
-        MySQL mySQL = new MySQL();
-        User user=mySQL.getUser(credential.getLogin(), credential.getPassword());
-
-        if(user==null){
-            return "{}";
-        }
-        else{
-            return "{\"token\":\""+user.getToken()+"\"}";
-        }
-
-    }
-
-    @POST
-    @Path("/singin")
-    @Produces(MediaType.APPLICATION_JSON)
-    public String createUser(NewUser newUser){
-        System.out.println(newUser.getlogin());
-        MySQL mySQL = new MySQL();
-        User user=mySQL.createNewUser(newUser);
-        if(user==null){
-            return "{}";
-        }
-        else{
-            return "{\"token\":\""+user.getToken()+"\"}";
-        }
-
-    }
 
     @GET
     @Path("/")
@@ -52,7 +19,7 @@ public class Home {
     public String getHome()
     {
         String output = "";
-        String inFile = "webSource/html/login.html";
+        String inFile = "webSource/html/main.html";
         try {
             File input = new File(inFile);
             Scanner prepared = new Scanner(input);
@@ -93,5 +60,4 @@ public class Home {
             return output;
         }
     }
-
 }

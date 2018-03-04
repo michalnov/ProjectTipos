@@ -8,12 +8,14 @@ public class User {
     private String login;
     private String email;
     private String token;
+    private String pasword;
 
-    public User(String firstname, String lastname, String login, String email) {
+    public User(String firstname, String lastname, String login, String email, String password) {
         this.firstname = firstname;
         this.lastname = lastname;
         this.login = login;
         this.email = email;
+        this.pasword = password;
         generetaToken();
     }
 
@@ -63,4 +65,8 @@ public class User {
     public String getToken() {
         return token;
     }
+
+    public String getPasword() { return pasword; }
+
+
 }

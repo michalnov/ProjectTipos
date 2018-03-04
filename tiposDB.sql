@@ -112,6 +112,7 @@ ENGINE = InnoDB;
 CREATE TABLE IF NOT EXISTS `tipos`.`token` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `token` VARCHAR(90) NULL DEFAULT 'null',
+	`login` VARCHAR(45) NULL,
   `idu` INT NULL,
   PRIMARY KEY (`id`),
   INDEX `fk_token_1_idx` (`idu` ASC),
@@ -127,16 +128,18 @@ ENGINE = InnoDB;
 -- Table `tipos`.`unsuccessful_login`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `tipos`.`unsuccessful_login` (
-  `id` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `idu` INT NOT NULL,
   `countOfEvents` INT NULL DEFAULT 0,
   `lastEvent` TIMESTAMP NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
-
-CREATE USER 'tiper1' IDENTIFIED BY 'reabc';
-
-GRANT ALL ON `tipos`.* TO 'tiper1';
+-- -----------------------------------------------------
+-- CREATE USER 'tiper1' IDENTIFIED BY 'reabc';
+-- GRANT ALL ON `tipos`.* TO 'tiper1';
+-- -----------------------------------------------------
+insert into users (firstname, lastname, login, email, password) values ('janko', 'harasko', 'test', 'test@test.sk', 'secret');
+insert into token (token, idu, login) values ('null', 1, 'test');
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;

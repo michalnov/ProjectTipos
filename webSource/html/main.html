@@ -1,10 +1,59 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <title>Tipos</title>
-  </head>
-  <body>
+<head>
+  <meta charset="utf-8">
+  <title>Home Tipos</title>
+  <script src="webSource/script/jquery-3.2.1.js" charset="utf-8"></script>
+  <script src="webSource/script/login.js" charset="utf-8"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body onload="prepare()">
 
-  </body>
+<div class="row">
+  <div class="col-sm-5"></div>
+  <div class="col-sm-2"> <h1>Project Tipos</h1> </div>
+  <div class="col-sm-5"></div>
+</div>
+<div class="row">
+  <div class="col-sm-2">
+
+  </div>
+  <div class="col-sm-5"> <h2>Login</h2> </div>
+  <div class="col-sm-2"> <h2>Register</h2> </div>
+</div>
+
+
+<script type="text/javascript">
+
+  var login = "";
+  var token = "";
+
+    function prepare() {
+      if(typeof(Storage) !== "undefined") {
+        if (sessionStorage.tiposLogin != null && sessionStorage.tiposToken != null) {
+          user = sessionStorage.tiposLogin;
+          token = sessionStorage.tiposToken;
+          $("#loggedU").val(login);
+          $("#loggedT").val(token);
+        }
+        else {
+          if (localStorage.tiposLogin && localStorage.tiposToken) {
+              user = localStorage.tiposLogin;
+              token = localStorage.tiposToken;
+              $("#loggedU").val(login);
+              $("#loggedT").val(token);
+          } else {
+              window.location.assign("localhost:8080/login");
+          }
+        }
+      }
+      else {
+          alert("Sorry, your browser does not support web storage...");
+      }
+    }
+
+  </script>
+
+</body>
 </html>
