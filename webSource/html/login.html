@@ -24,7 +24,7 @@
       <div class="col-sm-2"></div>
       <div class="col-sm-4">
           <div class="form-group">
-              <label for="LLogin">Name:</label>
+              <label for="LLogin">Login:</label>
               <input type="text" class="form-control" id="LLogin">
 
               <label for="LPassword">Password:</label>
@@ -32,11 +32,12 @@
               <div id="ErrorLogin"></div>
 
               <div style="padding-top: 10px;">
-                  <button type="button" class="btn btn-success">Login</button>
-                  <button type="button" class="btn btn-danger">Clear</button>
+                  <button type="button" onclick="processLogin()" class="btn btn-success">Login</button>
+                  <button type="button" onclick="clearLogin()" class="btn btn-danger">Clear</button>
               </div>
           </div>
           <div>
+            <p>already logged:</p>
             <p id="loggedU"></p>
             <p id="loggedT"></p>
           </div>
@@ -79,21 +80,62 @@
 
   <script type="text/javascript">
 
-  var user = "";
+  var login = "";
   var token = "";
+
+  function processLogin() {
+    var LLogin = $("#LLogin").val();
+    var LPassword = $("#LPassword").val();
+    if (LLogin.length <= 2 || LPassword.length <= 5) {
+      document.getElementById('ErrorLogin').innerHTML = "Incorrect login or password";
+    }
+    else {
+      document.getElementById('ErrorLogin').innerHTML = "";
+      login = LLogin;
+      $.ajax({
+        url : "auth/login",
+
+        type: "POST",
+        data: JSON.stringify({"login": LLogin,"password": LPassword}),
+        contentType: "application/json; charset=utf-8",
+        dataType   : 'json',
+
+
+        success : authentification(data),
+        error: function() {
+          document.getElementById('ErrorLogin').innerHTML = "EROR";
+        }
+
+      });
+    }
+  }
+
+
+  function authentification(data) {
+    $("#loggedU").val(login);
+    $("#loggedT").val(data.token);
+  }
+
+
+
+
 
     function prepare() {
       if(typeof(Storage) !== "undefined") {
-        if (sessionStorage.tiposUser && sessionStorage.tiposToken) {
-          user = sessionStorage.tiposUser;
+        if (sessionStorage.tiposLogin && sessionStorage.tiposToken) {
+          user = sessionStorage.tiposLogin;
           token = sessionStorage.tiposToken;
+          $("#loggedU").val(login);
+          $("#loggedT").val(token);
         }
         else {
-          if (localStorage.tiposUser && localStorage.tiposToken) {
-              user = localStorage.tiposUser;
+          if (localStorage.tiposLogin && localStorage.tiposToken) {
+              user = localStorage.tiposLogin;
               token = localStorage.tiposToken;
+              $("#loggedU").val(login);
+              $("#loggedT").val(token);
           } else {
-              localStorage.tiposUser = "";
+              localStorage.tiposLogin = "";
               localStorage.tiposToken = "";
           }
         }

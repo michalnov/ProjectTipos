@@ -110,7 +110,7 @@ ENGINE = InnoDB;
 -- Table `tipos`.`token`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `tipos`.`token` (
-  `id` INT NOT NULL AUTO_INCREMENT,
+  `id` INT NOT NULL,
   `token` VARCHAR(90) NULL DEFAULT 'null',
   `idu` INT NULL,
   PRIMARY KEY (`id`),

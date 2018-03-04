@@ -1,5 +1,7 @@
 package sk.akademiasovy.tipos.server.resources;
 
+import sk.akademiasovy.tipos.server.db.MySQL;
+
 import javax.ws.rs.*;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.MediaType;
@@ -9,6 +11,24 @@ import java.util.Scanner;
 
 @Path("/home")
 public class Home {
+
+
+    @POST
+    @Path("/auth/login")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String checkCredentials(Credentials credential){
+        System.out.println(credential.getLogin());
+        MySQL mySQL = new MySQL();
+        User user=mySQL.getUser(credential.getLogin(), credential.getPassword());
+
+        if(user==null){
+            return "{}";
+        }
+        else{
+            return "{\"token\":\""+user.getToken()+"\"}";
+        }
+
+    }
 
     @GET
     @Path("/")
