@@ -99,13 +99,10 @@
         data: JSON.stringify({"login": LLogin,"password": LPassword}),
         contentType: "application/json; charset=utf-8",
         dataType   : 'json',
-
-
-        success : authentification(data),
+        success : authentification,
         error: function() {
           document.getElementById('ErrorLogin').innerHTML = "EROR";
         }
-
       });
     }
   }

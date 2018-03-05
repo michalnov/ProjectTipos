@@ -20,7 +20,6 @@ public class Home {
         System.out.println(credential.getLogin());
         MySQL mySQL = new MySQL();
         User user=mySQL.getUser(credential.getLogin(), credential.getPassword());
-
         if(user==null){
             return "{}";
         }
@@ -31,7 +30,7 @@ public class Home {
     }
 
     @POST
-    @Path("/singin")
+    @Path("/auth/singin")
     @Produces(MediaType.APPLICATION_JSON)
     public String createUser(NewUser newUser){
         System.out.println(newUser.getlogin());

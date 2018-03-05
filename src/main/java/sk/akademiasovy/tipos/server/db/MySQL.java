@@ -27,11 +27,11 @@ public class MySQL {
             ResultSet rs = ps.executeQuery();
             if(rs.next()){
                  User user=new User(rs.getString("firstname"),rs.getString("lastname"),rs.getString("login"),rs.getString("email"),rs.getString("password"));
-                 query = "UPDATE tokens SET token=? WHERE idu=?";
+                 query = "UPDATE token SET token=? WHERE idu=? AND login = ?";
                 ps = conn.prepareStatement(query);
                 ps.setString(1, user.getToken());
                 ps.setInt(2,rs.getInt("id"));
-                ps.setInt(3,rs.getInt("login"));
+                ps.setString(3,rs.getString("login"));
                 ps.executeUpdate();
                 System.out.println(ps);
                 conn.close();

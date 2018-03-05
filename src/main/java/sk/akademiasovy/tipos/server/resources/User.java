@@ -23,26 +23,27 @@ public class User {
     private void generetaToken() {
         Random random=new Random();
         int lenght = random.nextInt(7)+11;
-        char[] text=new char[54];
+        System.out.println(lenght);
+        String preparingToken = "T";
         int typeofchar = 0;
         for(int i=0;i<lenght;i++){
             for (int j = 0; j < 3; j++) {
                 typeofchar = random.nextInt(3);
                 if (typeofchar == 1)
                 {
-                    text[i]=(char) (random.nextInt(10)+30);
+                    preparingToken = preparingToken + (char) (random.nextInt(10)+48);
                 }
                 else if (typeofchar == 0)
                 {
-                    text[i]=(char) (random.nextInt(26)+65);
+                    preparingToken = preparingToken + (char) (random.nextInt(26)+65);
                 }
                 else
                 {
-                    text[i]=(char) (random.nextInt(26)+97);
+                    preparingToken = preparingToken + (char) (random.nextInt(26)+97);
                 }
             }
         }
-        token=String.valueOf(text);
+        token=preparingToken;
         System.out.println(token);
     }
 
