@@ -55,20 +55,20 @@
               <input type="password" class="form-control" id="RPasswordRE">
               <div id="ErrorRPasswordRE"></div>
 
-              <label for="RFirstname">Password:</label>
+              <label for="RFirstname">First Name:</label>
               <input type="text" class="form-control" id="RFirstname">
               <div id="ErrorRFirstname"></div>
 
-              <label for="RLastname">Password:</label>
+              <label for="RLastname">Last Name:</label>
               <input type="text" class="form-control" id="RLastname">
               <div id="ErrorRLastname"></div>
 
-              <label for="REmail">Password:</label>
+              <label for="REmail">Email:</label>
               <input type="text" class="form-control" id="REmail">
               <div id="ErrorREmail"></div>
 
               <div style="padding-top: 10px;">
-                  <button type="button" class="btn btn-success">Register</button>
+                  <button type="button" class="btn btn-success" onclick="processSingin()">Register</button>
                   <button type="button" class="btn btn-primary" >Controll fields</button>
                   <button type="button" class="btn btn-danger">Clear</button>
               </div>
@@ -82,11 +82,62 @@
   var login = "";
   var token = "";
 
+
+  function processSingin() {
+    var RLogin = $("#RLogin").val();
+    var RPassword = $("#RPassword").val();
+    var RPasswordRE = $("#RPasswordRE").val();
+    var RFirstname = $("#RFirstname").val();
+    var RLastname = $("#RLastname").val();
+    var REmail = $("#REmail").val();
+    if (RFirstname.length < 2 || RLastname.length < 2 || REmail.length < 5) {
+      document.getElementById('ErrorLogin').innerHTML = "WRONG";
+      return;
+    }
+    if (RPasswordRE == RPassword) {}
+    else {
+      document.getElementById('ErrorLogin').innerHTML = "WRONG";
+      return;
+    }
+    if (RLogin.length <= 2 || RPassword.length <= 5) {
+      document.getElementById('ErrorLogin').innerHTML = "Incorrect login or password";
+    }
+    else {
+      document.getElementById('ErrorLogin').innerHTML = "";
+      login = RLogin;
+      $.ajax({
+        url : "/login/auth/singin",
+        type: "POST",
+        data: JSON.stringify({"login": RLogin,"password": RPassword,"firstName": RFirstname,"lastName": RLastname,"email": REmail}),
+        contentType: "application/json; charset=utf-8",
+        dataType   : 'json',
+        success : registrationCompleted,
+        error: function() {
+          document.getElementById('ErrorLogin').innerHTML = "EROR";
+        }
+      });
+    }
+  }
+
+  function registrationCompleted(data) {
+    console.log(data.token);
+    console.log(login);
+    $("#loggedU").val(login);
+    $("#loggedT").val(data.token);
+    sessionStorage.tiposLogin = login;
+    token = data.token;
+    sessionStorage.tiposToken = token;
+    localStorage.tiposLogin = login;
+    localStorage.tiposToken = token;
+    //window.location.assign("localhost:8080/home/");
+  }
+
   function processLogin() {
     var LLogin = $("#LLogin").val();
     var LPassword = $("#LPassword").val();
     if (LLogin.length <= 2 || LPassword.length <= 5) {
       document.getElementById('ErrorLogin').innerHTML = "Incorrect login or password";
+      return;
     }
     else {
       document.getElementById('ErrorLogin').innerHTML = "";
@@ -116,6 +167,7 @@
     sessionStorage.tiposToken = token;
     localStorage.tiposLogin = login;
     localStorage.tiposToken = token;
+    //window.location.assign("localhost:8080/home/");
   }
 
 

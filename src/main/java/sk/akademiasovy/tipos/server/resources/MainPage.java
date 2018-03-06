@@ -44,6 +44,7 @@ public class MainPage {
     {
         String output = "";
         String inFile = "webSource/"+source+"/"+file;
+        System.out.println(inFile);
         try {
             File input = new File(inFile);
             Scanner prepared = new Scanner(input);

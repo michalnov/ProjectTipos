@@ -16,20 +16,47 @@
   <div class="col-sm-5"></div>
 </div>
 <div class="row">
-  <div class="col-sm-2">
+  <div class="col-sm-4"> <p>all bets</p> </div>
 
-  </div>
-  <div class="col-sm-5"> <h2>Login</h2> </div>
-  <div class="col-sm-2"> <h2>Register</h2> </div>
+
+  <div class="col-sm-4"> <p>new bet</p> </div>
+    <div class="form-group">
+      <label for="sel1">Select list (select one):</label>
+      <select class="form-control" id="select1" onchange="selected('2')">  <option value="-">---</option> </select>
+      <select class="form-control" id="select2" onchange="selected('3')"> </select>
+      <select class="form-control" id="select3" onchange="selected('4')"> </select>
+      <select class="form-control" id="select4" onchange="selected('5')"> </select>
+      <select class="form-control" id="select5"> </select>
+      <button type="button" class="btn btn-danger" onclick="createBet()">Add new Bet</button>
+    </div>
+
+  <div class="col-sm-4"> <p>details</p> </div>
 </div>
 
 
 <script type="text/javascript">
-
   var login = "";
   var token = "";
 
+  function selected(parameter) {
+    var id = "select"+parameter;
+    console.log(id);
+    document.getElementById(id).innerHTML = "";
+    id = "#"+id;
+    for (var i = 1; i < 35; i++) {
+      if (i==$("#select1").val() || i==$("#select2").val() || i==$("#select3").val() || i==$("#select4").val() || i==$("#select5").val()) {
+
+      }
+      else {
+        $(id).append( '<option value="'+i+'">'+i+'</option>' );
+      }
+    }
+  }
+
     function prepare() {
+      for (var i = 1; i < 35; i++) {
+        $('#select1').append( '<option value="'+i+'">'+i+'</option>' );
+      }
       if(typeof(Storage) !== "undefined") {
         if (sessionStorage.tiposLogin != null && sessionStorage.tiposToken != null) {
           user = sessionStorage.tiposLogin;

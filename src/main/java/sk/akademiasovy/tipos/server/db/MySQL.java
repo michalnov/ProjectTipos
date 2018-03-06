@@ -60,7 +60,9 @@ public class MySQL {
             rs.next();
             if(rs.getInt("num")==0)
             {
-                registerNewUserIntoDb(new User(newUser.getFirstName(),newUser.getLastName(),newUser.getlogin(),newUser.getEmail(),newUser.getPassword()));
+                User newone = new User(newUser.getFirstName(),newUser.getLastName(),newUser.getlogin(),newUser.getEmail(),newUser.getPassword());
+                registerNewUserIntoDb(newone);
+                return newone;
             }
             else
                 return null;
@@ -106,8 +108,8 @@ public class MySQL {
                 query = "INSERT into token (token, idu, login) values (?,?,?)";
                 ps = conn.prepareStatement(query);
                 ps.setString(1, user.getToken());
-                ps.setInt(2, rs.getInt("id"));
-                ps.setInt(3, rs.getInt("login"));
+                ps.setInt(2,rs.getInt("id"));
+                ps.setString(3,rs.getString("login"));
                 ps.executeUpdate();
                 conn.close();
 
