@@ -144,7 +144,7 @@ public class MySQL {
             e.printStackTrace();
             return false;
         }
-        return true;
+        return false;
     }
 
 

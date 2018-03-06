@@ -5,6 +5,7 @@ import sk.akademiasovy.tipos.server.db.MySQL;
 import javax.ws.rs.*;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
@@ -26,7 +27,6 @@ public class Home {
         else{
             return "{\"token\":\""+user.getToken()+"\"}";
         }
-
     }
 
     @POST
@@ -42,7 +42,6 @@ public class Home {
         else{
             return "{\"token\":\""+user.getToken()+"\"}";
         }
-
     }
 
     @GET
@@ -93,4 +92,30 @@ public class Home {
         }
     }
 
+    @POST
+    @Path("/auth/controll")
+    @Produces({MediaType.APPLICATION_JSON})
+    public Response isValid(ControlCredentials controlCredentials)
+    {
+        String res = "";
+        try {
+            MySQL mySQL = new MySQL();
+            if (mySQL.controllToken(controlCredentials.getLogin(),controlCredentials.getToken()))
+            {
+
+            }
+            else
+            {
+                return Response.status(Response.Status.UNAUTHORIZED).build();
+            }
+        }
+        catch (Exception e)
+        {
+            res = "{\"msg\":\""+e+"\"}";
+            return Response.status(Response.Status.UNAUTHORIZED).build();
+        }
+        finally {
+            return Response.ok().build();
+        }
+    }
 }

@@ -8,7 +8,7 @@
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   </head>
-  <body onload="prepare()">
+  <body onload="prepare()" style="background: darkgrey;">
 
   <div class="row">
       <div class="col-sm-5"></div>
@@ -37,7 +37,6 @@
               </div>
           </div>
           <div>
-            <p>already logged:</p>
             <p id="loggedU"></p>
             <p id="loggedT"></p>
           </div>
@@ -94,7 +93,6 @@
       login = LLogin;
       $.ajax({
         url : "auth/login",
-
         type: "POST",
         data: JSON.stringify({"login": LLogin,"password": LPassword}),
         contentType: "application/json; charset=utf-8",
@@ -109,8 +107,15 @@
 
 
   function authentification(data) {
+    console.log(data.token);
+    console.log(login);
     $("#loggedU").val(login);
     $("#loggedT").val(data.token);
+    sessionStorage.tiposLogin = login;
+    token = data.token;
+    sessionStorage.tiposToken = token;
+    localStorage.tiposLogin = login;
+    localStorage.tiposToken = token;
   }
 
 
